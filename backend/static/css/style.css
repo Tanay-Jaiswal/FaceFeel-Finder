@@ -301,6 +301,32 @@ canvas {
   animation: pulse 2s infinite;
 }
 
+.summary-grid {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+}
+
+.summary-card {
+  padding: 18px;
+  border-radius: 14px;
+  text-align: center;
+}
+
+.summary-card .label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+.summary-card .value {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-top: 8px;
+}
+
 footer {
   padding: 16px; 
   text-align: center; 

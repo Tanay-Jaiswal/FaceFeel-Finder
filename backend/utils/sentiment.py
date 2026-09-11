@@ -6,25 +6,36 @@ from collections import Counter
 
 POSITIVE = [
     "good","great","love","amazing","happy","awesome","nice","super","fantastic",
-    "excellent","cool","excited","looking forward","can't wait","delight","wow"
+    "excellent","cool","excited","delight","wow","best","beautiful","helpful","glad",
+    "amazing","perfect","smooth","fast","clean","favorite","support","in love",
+    "looking forward","can't wait","so good","really good","very good"
 ]
 NEGATIVE = [
     "bad","worst","hate","angry","upset","horrible","disappointed","awful","terrible",
-    "poor","sad","pain","annoying","useless","meh"
+    "poor","sad","pain","annoying","useless","meh","broken","slow","buggy","worried",
+    "confusing","hate it","not good","terrible","frustrating","dislike","junk"
 ]
-NEUTRAL_HINTS = ["ok","fine","average","whatever","normal"]
+NEUTRAL_HINTS = [
+    "ok","fine","average","whatever","normal","meh","fair","decent","mixed","okay",
+    "not bad","not great"
+]
+
 
 def classify(text: str) -> str:
     t = text.lower()
-    if any(k in t for k in POSITIVE):
-        return "positive"
-    if any(k in t for k in NEGATIVE):
-        return "negative"
-    if any(k in t for k in NEUTRAL_HINTS):
-        return "neutral"
-    # naive default
-    return "neutral"
+    positive_score = sum(1 for k in POSITIVE if k in t)
+    negative_score = sum(1 for k in NEGATIVE if k in t)
+    neutral_score = sum(1 for k in NEUTRAL_HINTS if k in t)
 
+    if positive_score > negative_score and positive_score > neutral_score:
+        return "positive"
+    if negative_score > positive_score and negative_score > neutral_score:
+        return "negative"
+    if neutral_score > 0:
+        return "neutral"
+    if positive_score == negative_score and positive_score > 0:
+        return "neutral"
+    return "neutral"
 def summarize(comments):
     """
     comments: list of dicts with 'message' key

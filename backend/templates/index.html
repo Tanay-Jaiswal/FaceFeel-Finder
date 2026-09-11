@@ -63,11 +63,11 @@
   <main>
     <div class="hero-section">
       <h2 class="hero-title">🎭 Dive into Emotions with FeelFinder!</h2>
-      <p class="hero-subtitle">Paste a Facebook post URL to discover the emotional pulse of comments</p>
+      <p class="hero-subtitle">Paste a Facebook post URL to uncover the emotional pulse behind public comments.</p>
       <div class="hero-features">
-        <span class="feature-badge">📊 Real-time Analysis</span>
-        <span class="feature-badge">🎯 Sentiment Detection</span>
-        <span class="feature-badge">📈 Visual Insights</span>
+        <span class="feature-badge">📊 Live API Ready</span>
+        <span class="feature-badge">🎯 Demo Mode Included</span>
+        <span class="feature-badge">🔒 Token-Safe Local Setup</span>
       </div>
     </div>
 
@@ -122,18 +122,29 @@
     <section class="form-area">
       <div class="form-header">
         <h2>🔗 Analyze Your Post</h2>
-        <p>Get instant insights into comment emotions</p>
+        <p>Run a sentiment scan on a public post or try the demo data locally.</p>
+      </div>
+      <div id="status-banner" class="status-banner" style="margin-bottom: 18px; padding: 10px 14px; border-radius: 12px; background: rgba(102,126,234,0.08); border: 1px solid rgba(102,126,234,0.2); color: #4a5568; text-align: center; font-size: 0.92rem;">
+        Local setup: add your token to <strong>backend/.env</strong> for live results, or use demo mode to test the app.
       </div>
       <form id="comment-form">
         <div class="input-group">
           <div class="input-icon">🔗</div>
           <input type="text" id="post-link" placeholder="https://facebook.com/posts/..." required />
         </div>
-        <button type="submit" id="submit-btn">
-          <span class="btn-icon">🔍</span>
-          <span class="btn-text">Analyze Comments</span>
-        </button>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <button type="submit" id="submit-btn" style="flex: 1; min-width: 220px;">
+            <span class="btn-icon">🔍</span>
+            <span class="btn-text">Analyze Comments</span>
+          </button>
+          <button type="button" id="demo-btn" style="flex: 0 0 auto; padding: 16px 18px; border: 2px solid #667eea; background: white; color: #667eea; border-radius: 15px; font-size: 1rem; font-weight: 600; cursor: pointer;">
+            Use Demo Data
+          </button>
+        </div>
       </form>
+      <div class="setup-note" style="margin-top: 12px; color: #4a5568; font-size: 0.92rem; text-align: center;">
+        Local demo: keep your Facebook token in <strong>backend/.env</strong> for live analysis.
+      </div>
       <div id="error" class="error" hidden></div>
     </section>
 
@@ -142,12 +153,27 @@
       <div class="chart-container">
         <canvas id="emotionChart" width="400" height="400"></canvas>
       </div>
-
+ 
       <div class="overall-emotion-section">
         <h2>🎯 Overall Emotion</h2>
         <div class="emotion-display">
-          <div id="overall-emotion" class="overall"></div>
-          <div class="emotion-emoji" id="emotion-emoji"></div>
+          <div id="overall-emotion" class="overall">Waiting for analysis</div>
+          <div class="emotion-emoji" id="emotion-emoji">🤔</div>
+        </div>
+      </div>
+
+      <div class="summary-grid" style="margin-top: 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px;">
+        <div class="summary-card" style="padding: 18px; border-radius: 14px; background: rgba(102,126,234,0.08); border: 1px solid rgba(102,126,234,0.2); text-align: center;">
+          <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: #667eea; font-weight: 600;">Positive</div>
+          <div id="positive-count" style="font-size: 2rem; font-weight: 700; color: #667eea; margin-top: 8px;">0</div>
+        </div>
+        <div class="summary-card" style="padding: 18px; border-radius: 14px; background: rgba(118,75,162,0.08); border: 1px solid rgba(118,75,162,0.2); text-align: center;">
+          <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: #764ba2; font-weight: 600;">Negative</div>
+          <div id="negative-count" style="font-size: 2rem; font-weight: 700; color: #764ba2; margin-top: 8px;">0</div>
+        </div>
+        <div class="summary-card" style="padding: 18px; border-radius: 14px; background: rgba(160,160,160,0.08); border: 1px solid rgba(160,160,160,0.2); text-align: center;">
+          <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: #666; font-weight: 600;">Neutral</div>
+          <div id="neutral-count" style="font-size: 2rem; font-weight: 700; color: #666; margin-top: 8px;">0</div>
         </div>
       </div>
     </section>
