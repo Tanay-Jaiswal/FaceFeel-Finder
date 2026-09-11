@@ -1,87 +1,82 @@
-# FeelFinder — Facebook Comment Emotion Analyzer
+# FeelFinder
 
-A lightweight Flask app that analyzes Facebook post comments and summarizes their overall emotional tone.
+FeelFinder is a lightweight local demo app for analyzing Facebook post comments and summarizing their emotional tone.
 
-Features:
-- Accepts a Facebook post URL
-- Extracts the post ID
-- Fetches comments via the Facebook Graph API with pagination
-- Runs a simple sentiment pass on comment text
-- Shows a pie chart and overall emotion summary
-- Includes a local demo mode for testing without a real token
+It accepts a Facebook post URL, extracts the post ID, fetches comments through the Facebook Graph API, and classifies each comment as positive, negative, or neutral. The project includes a demo mode for local testing without live API access, which makes it easier to explore the app and refine the user experience without needing a token.
 
-This project is designed as a local demo/prototype and is best used with a valid Facebook access token when testing real public posts. The app includes a sample demo mode so it can be tested without live API access.
+## Features
+- Paste a Facebook post URL
+- Extract the post ID from the URL
+- Fetch comments via the Facebook Graph API
+- Classify comments as positive, negative, or neutral
+- Show a visual emotion distribution chart
+- Include a demo mode for local testing
 
----
+## Tech Stack
+- Python
+- Flask
+- Requests
+- Chart.js
 
-## 1) Quickstart (Local)
+## Local Setup
 
-Requirements: Python 3.10+
+Requirements:
+- Python 3.10+
 
 ```bash
 cd backend
 python -m venv .venv
 
-# macOS/Linux:
-source ./.venv/bin/activate
-# Windows PowerShell:
+# Windows PowerShell
 # .\.venv\Scripts\Activate.ps1
+
+# macOS / Linux
+# source .venv/bin/activate
 
 pip install -r requirements.txt
 
-# configure environment
+# create the environment file
 copy .env.example .env
 # or: cp .env.example .env
-# then add your ACCESS_TOKEN if you want live Facebook analysis
 
-# run the app
+# edit backend/.env if you want live Facebook analysis
 python app.py
-# open http://localhost:5000
 ```
 
-You can also test the app without a token by clicking the Demo Data button in the UI.
+Then open:
+- http://localhost:5000
 
----
+## Environment Variables
 
-## 2) Environment Variables
-
-Create `backend/.env`:
+Create `backend/.env` with:
 
 ```env
-ACCESS_TOKEN=REPLACE_ME
+ACCESS_TOKEN=YOUR_FACEBOOK_ACCESS_TOKEN
 FB_API_VERSION=v21.0
 FLASK_ENV=development
 ```
 
 Notes:
-- `ACCESS_TOKEN` is optional for the demo mode
-- For live analysis, use a valid Facebook Page or user token with proper permissions
-- The token must be authorized to access the Facebook post you are testing
+- `ACCESS_TOKEN` is required for live Facebook analysis
+- The app also includes a built-in demo dataset for local testing
+- Keep your token local and do not commit it to GitHub
 
----
+## Demo Mode
 
-## 3) Demo Mode
+The app includes a built-in sample dataset so you can test the interface without a live Facebook token.
 
-This app includes a built-in sample dataset so you can test the interface locally without a Facebook token.
-
-Use the Demo Data button in the browser to:
+Use the “Use Demo Data” button in the browser to:
 - validate the UI flow
-- test the chart rendering
-- check the overall sentiment summary
-- keep the project working while you polish it locally
+- preview the chart and summary output
+- test the app without external API access
+- keep development local and safe
 
----
+## Notes
+- This project is a demo/prototype and not a production-grade sentiment engine
+- Live Graph API requests depend on valid Facebook permissions and public post access
+- Respect Facebook API limits and platform terms of service
 
-## 4) Notes on Tokens & Permissions
-
-- Tokens can expire or have limited permissions
-- Public posts are easiest to test with a valid token
-- Respect Facebook rate limits and platform terms of service
-- Never commit your real access token to GitHub or any public repo
-
----
-
-## 5) Docker (Optional)
+## Docker (Optional)
 
 ```bash
 # build
@@ -91,16 +86,11 @@ docker build -t feelfinder:latest ./backend
 docker run --rm -p 5000:5000 --env-file backend/.env feelfinder:latest
 ```
 
----
-
-## 6) Deployment Notes
-
+## Deployment Notes
 - Use `gunicorn` for production-style serving
-- Store `ACCESS_TOKEN` in a local environment or secret manager
-- If behind a proxy, configure `X-Forwarded-*` headers or `--forwarded-allow-ips=*`
+- Store access tokens in a secure environment or secret manager
+- If behind a reverse proxy, configure forwarded headers appropriately
 
----
+## Acknowledgements
 
-## 7) Acknowledgements
-
-This project is a lightweight demo inspired by the original project brief and is intended for local experimentation and learning.
+This project is a lightweight local demo inspired by the original project brief and intended for learning, experimentation, and portfolio use.
